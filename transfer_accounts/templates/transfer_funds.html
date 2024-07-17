@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Transfer Funds</title>
-  {% load static %}
+    <title>Transfer Funds</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        .message-success {
+            color: green;
+            border: 1px solid green;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #e0f8e0;
+        }
 
-  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        .message-error {
+            color: red;
+            border: 1px solid red;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #f8e0e0;
+        }
+    </style>
 </head>
 <body>
 <header>
-  <div class="container">
-    <div id="branding">
-      <h1>Account Management</h1>
+    <div class="container">
+        <div id="branding">
+            <h1>Account Management</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'import_accounts' %}">Import Accounts</a></li>
+                <li><a href="{% url 'list_accounts' %}">List Accounts</a></li>
+                <li><a href="{% url 'transfer_funds' %}">Transfer Funds</a></li>
+            </ul>
+        </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="{% url 'import_accounts' %}">Import Accounts</a></li>
-        <li><a href="{% url 'list_accounts' %}">List Accounts</a></li>
-        <li><a href="{% url 'transfer_funds' %}">Transfer Funds</a></li>
-      </ul>
-    </nav>
-  </div>
 </header>
 <div class="container">
-  <h1>Transfer Funds</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Transfer</button>
-  </form>
+    <h1>Transfer Funds</h1>
+
+    <!-- Display messages -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message-{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Transfer</button>
+    </form>
 </div>
 </body>
 </html>
