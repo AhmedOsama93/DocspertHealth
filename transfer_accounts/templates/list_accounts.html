@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List Accounts</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Account Management</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'import_accounts' %}">Import Accounts</a></li>
+                    <li><a href="{% url 'list_accounts' %}">List Accounts</a></li>
+                    <li><a href="{% url 'transfer_funds' %}">Transfer Funds</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>List of Accounts</h1>
+        <ul>
+            {% for account in accounts %}
+                <li>
+                    <a href="{% url 'account_info' account.id %}">{{ account.name }}</a> - Balance: {{ account.balance }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
