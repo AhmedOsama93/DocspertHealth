@@ -43,52 +43,8 @@ The API is documented using Swagger. You can access the Swagger UI at `/swagger/
 - Docker
 - Docker Compose
 
-### Building and Running the Docker Image
+- pip install -r requirements.txt
+- cd app
+- python manage.py migrate    
+- python manage.py runserver
 
-1. **Build the Docker Image**:
-
-    ```bash
-    docker build -t account_management_app .
-    ```
-
-2. **Run the Docker Container**:
-
-    ```bash
-    docker run -d -p 8000:8000 account_management_app
-    ```
-
-3. **Access the Application**:
-
-    Open your web browser and go to `http://localhost:8000`.
-
-### Docker Compose
-
-You can also use Docker Compose to run the application along with a PostgreSQL database.
-
-### `docker-compose.yml`
-
-```yaml
-version: '3'
-
-services:
-  web:
-    build: .
-    command: gunicorn docsperthealth.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: your_db_name
-      POSTGRES_USER: your_db_user
-      POSTGRES_PASSWORD: your_db_password
-
-volumes:
-  postgres_data:
